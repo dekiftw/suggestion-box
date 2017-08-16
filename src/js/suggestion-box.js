@@ -425,8 +425,8 @@
                         var selectionHasChanged = true;
                         var currentLi = selectedLi;
 
-                        if (jsonData.suggestions && data.suggestions) {
-                            selectionHasChanged = (JSON.stringify(jsonData.suggestions[selectedLi]) !== JSON.stringify(data.suggestions[selectedLi]))
+                        if (jsonData && data) {
+                            selectionHasChanged = (JSON.stringify(jsonData[selectedLi]) !== JSON.stringify(data[selectedLi]))
                         }
 
                         setJsonData(data);
@@ -608,7 +608,7 @@
             var $suggestions = '<div class="suggestion-header">' + options.heading + '</div> ' +
                 '<ul class="suggestion-box-list">';
 
-            $.each(data.suggestions, function(key, value) {
+            $.each(data, function(key, value) {
 
                 if (value.suggestion && value.url) {
                     matches = true;
@@ -657,7 +657,7 @@
 
 
             if (data) {
-                if (data.suggestions) {
+                if (data) {
                     var $suggestions = createSuggestionsList(data);
                 }
             }
@@ -708,8 +708,8 @@
                 jsonData = {};
             }
 
-            if (options.sort && jsonData.suggestions) {
-                jsonData.suggestions.sort(options.sort);
+            if (options.sort && jsonData) {
+                jsonData.sort(options.sort);
             }
         }
 
@@ -747,11 +747,11 @@
                 return jsonData;
             }
             if (jsonData) {
-                if (jsonData.suggestions) {
+                if (jsonData) {
 
                     // We have JSON data and user input, so apply the filter
                     var regex = new RegExp(filterPattern, "i");
-                    data = $.grep(jsonData.suggestions, function(name) {
+                    data = $.grep(jsonData, function(name) {
                         return regex.test(name.suggestion);
                     });
                 }
